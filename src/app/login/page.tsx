@@ -48,10 +48,11 @@ export default function LoginPage() {
         <CardHeader className="text-center pb-2">
           <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-white/5 flex items-center justify-center shadow-xl shadow-indigo-500/20 overflow-hidden border border-white/10">
             <Image 
-              src={logo} 
+              src="/logo.png" 
               alt="OrderFlow Logo" 
               width={64} 
               height={64} 
+              priority
               className="object-cover"
             />
           </div>
