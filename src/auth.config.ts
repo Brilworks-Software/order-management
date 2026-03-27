@@ -6,6 +6,7 @@ interface CustomUser {
 }
 
 export const authConfig = {
+  trustHost: true,
   pages: {
     signIn: "/login",
   },
