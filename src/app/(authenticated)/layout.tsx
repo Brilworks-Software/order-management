@@ -10,7 +10,11 @@ export default async function AuthenticatedLayout({ children }: { children: Reac
     if (!session?.user) redirect("/login")
     return <AuthLayoutClient>{children}</AuthLayoutClient>
   } catch (e) {
-    if ((e as any)?.message === "NEXT_REDIRECT" || (e as any)?.digest?.includes("NEXT_REDIRECT")) {
+    const isRedirect = e && typeof e === 'object' && (
+      ('message' in e && e.message === "NEXT_REDIRECT") || 
+      ('digest' in e && typeof e.digest === 'string' && e.digest.includes("NEXT_REDIRECT"))
+    );
+    if (isRedirect) {
       throw e;
     }
     const error = e as Error;
