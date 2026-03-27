@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { User, Lock } from "lucide-react"
 import Image from "next/image"
+import logo from "@/assets/logo.png"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -46,8 +47,8 @@ export default function LoginPage() {
       <Card className="w-full max-w-md relative z-10 border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-indigo-500/10">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-white/5 flex items-center justify-center shadow-xl shadow-indigo-500/20 overflow-hidden border border-white/10">
-            <img 
-              src="/logo.png" 
+            <Image 
+              src={logo} 
               alt="OrderFlow Logo" 
               width={64} 
               height={64} 
