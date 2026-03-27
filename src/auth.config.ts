@@ -1,5 +1,10 @@
 import type { NextAuthConfig } from "next-auth";
 
+interface CustomUser {
+  id?: string;
+  role?: string;
+}
+
 export const authConfig = {
   pages: {
     signIn: "/login",
@@ -19,15 +24,15 @@ export const authConfig = {
     },
     jwt({ token, user }) {
       if (user) {
-        token.role = (user as any).role;
+        token.role = (user as CustomUser).role;
         token.id = user.id;
       }
       return token;
     },
     session({ session, token }) {
       if (session.user) {
-        (session.user as any).role = token.role as string;
-        (session.user as any).id = token.id as string;
+        (session.user as CustomUser).role = token.role as string;
+        (session.user as CustomUser).id = (token.id ?? token.sub) as string;
       }
       return session;
     },
