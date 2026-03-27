@@ -1,20 +1,22 @@
-import { auth } from "@/auth"
-import { NextResponse } from "next/server"
+import NextAuth from "next-auth"
+import { authConfig } from "./auth.config"
+
+export const { auth } = NextAuth(authConfig)
 
 export default auth((req) => {
-  if (!req.auth) {
-    const loginUrl = new URL("/login", req.nextUrl)
-    return NextResponse.redirect(loginUrl)
+  const isLoggedIn = !!req.auth
+  const isOnLogin = req.nextUrl.pathname === "/login"
+
+  if (isOnLogin) {
+    if (isLoggedIn) return Response.redirect(new URL("/", req.nextUrl))
+    return
   }
-  return NextResponse.next()
+
+  if (!isLoggedIn) {
+    return Response.redirect(new URL("/login", req.nextUrl))
+  }
 })
 
 export const config = {
-  matcher: [
-    "/dashboard/:path*",
-    "/orders/:path*",
-    "/customers/:path*",
-    "/products/:path*",
-    "/users/:path*",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
